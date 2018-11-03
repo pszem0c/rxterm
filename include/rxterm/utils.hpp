@@ -75,6 +75,10 @@ std::string clearLines(unsigned n = 1) {
   return "\e[0m" + clearBeforeCursor() + ((n) ? repeat(n, clearLine() + moveUp()) : std::string(""));
 }
 
+std::string clearScreen() {
+  return "\x1B[2J\x1B[H";
+}
+
 }
 
 #endif

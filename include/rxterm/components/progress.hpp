@@ -19,8 +19,8 @@ struct Progress {
   Pixel const fg;
 
   Progress(float const p,
-    Pixel const& bg = Pixel{' ', {Color::Cyan}},
-    Pixel const& fg = Pixel{' ', {Color::Blue}})
+    Pixel const& bg = Pixel{" ", {Color::Cyan}},
+    Pixel const& fg = Pixel{" ", {Color::Blue}})
     : progress{p}
     , bg{bg}
     , fg{fg}
@@ -32,6 +32,7 @@ struct Progress {
       Image::create(width, 1, bg),
       0, 0,
       Image::create(width*p, 1, fg));
+
   }
 };
 

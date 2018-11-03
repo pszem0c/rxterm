@@ -37,10 +37,10 @@ struct Text {
         return a.size() < b.size();
     })->size();
 
-    auto image = Image::create(width, height, Pixel{'\0', style});
+    auto image = Image::create(width, height, Pixel{"\0", style});
     unsigned y = 0;
     for(auto const& line : lines) {
-      for(int x=0; x < line.size(); ++x) {
+      for(unsigned x=0; x < line.size(); ++x) {
         image(x,y).c = line[x];
       }
       ++y;

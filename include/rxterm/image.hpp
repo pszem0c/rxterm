@@ -53,13 +53,13 @@ struct Image {
     std::string str = "";
 
     auto prev = Style{};
-    for (int y=0; y < height; ++y) {
-      for (int x=0; x < width; ++x) {
+    for (unsigned y=0; y < height; ++y) {
+      for (unsigned x=0; x < width; ++x) {
         auto const& pixel = (*this)(x, y);
-        auto const current = diff(prev, pixel.c ? pixel.style : Style::Default());
-        char c = pixel.c ? pixel.c : ' ';
+        auto const current = diff(prev, !pixel.c.empty() ? pixel.style : Style::Default());
+        std::string c = !pixel.c.empty() ? pixel.c : " ";
         str += current.toString() + c;
-        prev = pixel.c != '\0' ? pixel.style : Style::Default();
+        prev = !pixel.c.empty() ? pixel.style : Style::Default();
       }
       str+="\n";
     }
@@ -68,15 +68,15 @@ struct Image {
 };
 
 Image drawOnBackground(Image canvas, unsigned const& sx, unsigned const& sy, Image const& fg) {
-  for(int y=0; y < fg.height; ++y) {
-    for(int x=0; x < fg.width; ++x) {
+  for(unsigned y=0; y < fg.height; ++y) {
+    for(unsigned x=0; x < fg.width; ++x) {
       auto& p = canvas(sx+x, sy+y);
       auto const& q = fg(x, y);
       p = Pixel{
-        (q.c)? q.c : p.c,
+        (!q.c.empty())? q.c : p.c,
         Style{
           q.style.fg,
-          (q.c)? q.style.bg : p.style.bg,
+          (!q.c.empty())? q.style.bg : p.style.bg,
           q.style.font
         }
       };

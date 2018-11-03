@@ -5,3 +5,6 @@ BUCKAROO_DEPS
 buckaroo
 buckaroo-stacktrace.log
 
+build
+srd
+src

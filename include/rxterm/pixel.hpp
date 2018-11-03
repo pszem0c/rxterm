@@ -7,7 +7,7 @@
 namespace rxterm {
 
 struct Pixel {
-  char c ='\0';
+  std::string c = "";
   Style style;
 
   std::string toString() const {
