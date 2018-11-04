@@ -17,23 +17,28 @@ struct Window {
     Pixel bg;
     unsigned width;
     unsigned height;
+    std::string title;
 
-    Window(unsigned width,
+    Window(std::string title,
+        unsigned width,
         unsigned height)
         : children(),
         bg{Pixel{}},
         width(width),
-        height(height)
+        height(height),
+        title(title)
         {}
 
     template<class...Xs>
-    Window(unsigned width,
+    Window(std::string title,
+        unsigned width,
         unsigned height,
         Xs const&...xs)
         : children{xs...},
         bg{Pixel{}},
         width(width),
-        height(height)
+        height(height),
+        title(title)
         {}
 
     Image render(unsigned const maxWidth) const {
@@ -43,8 +48,15 @@ struct Window {
         canvas(0, height-1).c = "\u2517";
         canvas(width-1, height-1).c = "\u251B";
         
+        unsigned titleStart = std::max((int)(width/2 - title.size()/2),1);
+        unsigned titleEnd = std::min((int)(width/2 + title.size()/2),(int)width-2);
+
         for (unsigned x = 1; x < width-1; ++x) {
-            canvas(x, 0).c = "\u2501";
+            if (x >= titleStart && x <= titleEnd && titleStart != titleEnd) {
+                canvas(x, 0).c = title[x - titleStart]; 
+            } else {
+                canvas(x, 0).c = "\u2501";
+            }
             canvas(x, height-1).c = "\u2501";
         }
 

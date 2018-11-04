@@ -40,9 +40,9 @@ int main() {
   };*/
 
   auto view = [](auto x) -> Window<> {
-    return Window<>{60, 10,
+    return Window<>{"title",60, 10,
         std::make_tuple(FlowLayout<>{
-          Window<>(20,7),Window<>(20,7)
+          Window<>("",20,7),Window<>("",20,7)
         }, 11, 0)
     };
   };
