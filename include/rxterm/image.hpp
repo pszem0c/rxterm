@@ -29,7 +29,7 @@ struct Image {
   Image& operator=(Image const&) = default;
 
 
-  static Image create(unsigned const& width, unsigned const& height, Pixel const& pixel = Pixel{'\0', Style::None()}) {
+  static Image create(unsigned const& width, unsigned const& height, Pixel const& pixel = Pixel{"", Style::None()}) {
     return {
       std::vector<Pixel>(width*height, pixel),
       width,

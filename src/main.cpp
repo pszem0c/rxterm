@@ -50,7 +50,7 @@ int main() {
 
 
   for (int i = 0; i < 101; ++i) {
-    vt = renderToTerm(vt, view(0.01*i));
+    vt.render(view(0.01*i));
     std::this_thread::sleep_for(200ms);
   }
 

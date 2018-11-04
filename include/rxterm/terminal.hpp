@@ -5,6 +5,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <rxterm/components/component.hpp>
 #include <rxterm/utils.hpp>
 
 #ifdef __linux__
@@ -57,6 +58,16 @@ struct VirtualTerminal {
     std::flush(std::cout);
     return VirtualTerminal(next, width, height);
   }
+
+  void render(Component const& c) {
+    std::string const& next = c.render(width).toString();
+    auto const& transition = computeTransition(next);
+    if(transition == "") return;
+    std::cout << transition << hide();
+    std::flush(std::cout);
+    buffer = next;
+  }
+
 };
 
 }
